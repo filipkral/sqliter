@@ -193,7 +193,7 @@ if __name__ == "__main__":
             con.execute('INSERT INTO edge VALUES (?, ?, ?, ?, ?);', i)
         con.commit()
 
-        # insert some more nodes with individual liter.q calls
+        # insert some more nodes with individual sqliter.q calls
         data_nodes = [(7, '', 0, 0, 0, '', '1'), (8, '', 0, 0, 0, '', ''), (9, '', 0, 0, 0, '', ''), (10, '', 0, 0, 0, '', ''), (11, '', 0, 0, 0, '', ''), (12, '', 0, 0, 0, '', '')]
         data_edges = [(7, '', 0, 1, 2), (8, '', 0, 1, 2), (9, '', 0, 1, 2), (10, '', 0, 1, 2), (11, '', 0, 1, 2), (12, '', 0, 1, 2)]
         for i in data_nodes:
