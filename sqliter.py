@@ -15,7 +15,7 @@ def version():
 
 Connection = lt.Connection
 
-def q(sql, db):
+def q(sql, db, detect_types=lt.PARSE_DECLTYPES|lt.PARSE_COLNAMES):
     """Execute sql query on database path or connection db.
 
     Returns fetchall() result for select statements,
@@ -35,7 +35,7 @@ def q(sql, db):
     if type(db) == lt.Connection:
         cn = db
     else:
-        cn = lt.connect(db)
+        cn = lt.connect(db, detect_types=detect_types)
         closeit = True
     cr = cn.cursor()
     cr.execute(sql)
@@ -86,14 +86,14 @@ def tables(db):
     """Return a list of table names in database or connection db."""
     return [i[0] for i in q("SELECT name FROM sqlite_master WHERE type='table';", db)]
 
-def names(db, table):
+def names(db, table, detect_types=lt.PARSE_DECLTYPES|lt.PARSE_COLNAMES):
     """Return a list of column names of table from database or connection db."""
     closeit = False
     if type(db) == lt.Connection:
         cn = db
         closeit = True
     else:
-        cn = lt.connect(db)
+        cn = lt.connect(db, detect_types=detect_types)
     cr = cn.cursor()
     re = cr.execute("SELECT * FROM %s LIMIT 0" % (table))
     ret = [i[0] for i in re.description]
